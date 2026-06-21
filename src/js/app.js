@@ -189,7 +189,7 @@ function renderCartPage(container = null, forceScroll = false) {
     if (cart.length === 0) {
         mainContent.innerHTML = `
             <h2 class="cart-title">سلة الطلبات</h2>
-            <div class="empty-cart-message">سلتك فارغة تماماً.. تصفح المنيو وأضف وجباتك المفضلة!</div>
+            <div class="empty-cart-message">السلة فارغة !</div>
         `;
         if (forceScroll) window.scrollTo({ top: 0, behavior: 'auto' });
         return;
