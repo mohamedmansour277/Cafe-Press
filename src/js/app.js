@@ -1,39 +1,39 @@
 // نظام الـ Routing وعرض الصفحات ديناميكياً
 
 // نظام الـ Routing وعرض الصفحات ديناميكياً
-window.currentPage = 'home';
+window.currentPage = "home";
 
 // حل مشكلة الإزاحة التلقائية (50px) عند الريفريش - إجبار المتصفح على فتح القمة دائماً
-if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    updateCartBadge();
-    // عند أول تحميل، نلغي التأثير الناعم (smooth) عشان ما يحصلش تداخل
-    navigateTo('home', null, false); 
+  updateCartBadge();
+  // عند أول تحميل، نلغي التأثير الناعم (smooth) عشان ما يحصلش تداخل
+  navigateTo("home", null, false);
 });
 
 // أضفنا بارامتر ثالث (smooth) وقيمته الافتراضية true
 function navigateTo(pageId, sectionId = null, smooth = true) {
-    window.currentPage = pageId;
-    const mainContent = document.getElementById('mainContent');
-    
-    if (pageId === 'home') {
-        renderHomePage(mainContent);
-        // نطلع فوق فوراً بعد بناء الرئيسية
-        window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
-    } else if (pageId === 'section' && sectionId) {
-        renderSectionPage(mainContent, sectionId);
-        // نطلع فوق فوراً بعد بناء الأقسام
-        window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
-    } else if (pageId === 'cart') {
-        renderCartPage(mainContent, true); // مررنا true هنا عشان يعمل سكرول لفوق
-    }
+  window.currentPage = pageId;
+  const mainContent = document.getElementById("mainContent");
+
+  if (pageId === "home") {
+    renderHomePage(mainContent);
+    // نطلع فوق فوراً بعد بناء الرئيسية
+    window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" });
+  } else if (pageId === "section" && sectionId) {
+    renderSectionPage(mainContent, sectionId);
+    // نطلع فوق فوراً بعد بناء الأقسام
+    window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" });
+  } else if (pageId === "cart") {
+    renderCartPage(mainContent, true); // مررنا true هنا عشان يعمل سكرول لفوق
+  }
 }
 
 function renderHomePage(container) {
-    container.innerHTML = `
+  container.innerHTML = `
         <div class="home-container">
             <h1 class="brand-title">Cafe Press</h1>
             <p class="brand-subtitle">أكثر من مجرد كافيه .. على مزاجك بالظبط</p>
@@ -67,35 +67,35 @@ function renderHomePage(container) {
 
 // دالة ذكية لإخفاء الـ Skeleton وإظهار الصورة بنعومة فور اكتمال تحميلها
 function handleImageLoad(imgElement, loaderId) {
-    imgElement.classList.add('loaded');
-    const loader = document.getElementById(loaderId);
-    if (loader) {
-        loader.style.display = 'none';
-    }
+  imgElement.classList.add("loaded");
+  const loader = document.getElementById(loaderId);
+  if (loader) {
+    loader.style.display = "none";
+  }
 }
 
 function renderSectionPage(container, sectionId) {
-    const sectionData = CAFE_MENU[sectionId];
-    if (!sectionData) return;
+  const sectionData = CAFE_MENU[sectionId];
+  if (!sectionData) return;
 
-    let productsHTML = '';
-    
-    sectionData.items.forEach(product => {
-        let sizesHTML = '';
-        let initialPrice = product.price;
+  let productsHTML = "";
 
-        if (product.hasSizes) {
-            initialPrice = product.prices.medium; // الافتراضي وسط
-            sizesHTML = `
+  sectionData.items.forEach((product) => {
+    let sizesHTML = "";
+    let initialPrice = product.price;
+
+    if (product.hasSizes) {
+      initialPrice = product.prices.medium; // الافتراضي وسط
+      sizesHTML = `
                 <div class="sizes-container" id="sizes_${product.id}">
                     <button class="size-btn" onclick="selectProductSize('${product.id}', 'صغير', ${product.prices.small})">صغير</button>
                     <button class="size-btn active" onclick="selectProductSize('${product.id}', 'وسط', ${product.prices.medium})">وسط</button>
                     <button class="size-btn" onclick="selectProductSize('${product.id}', 'كبير', ${product.prices.large})">كبير</button>
                 </div>
             `;
-        }
+    }
 
-        productsHTML += `
+    productsHTML += `
             <div class="product-card" data-product-id="${product.id}">
                 <img src="${product.img}" alt="${product.name}" class="product-img">
                 <div class="product-info">
@@ -118,9 +118,9 @@ function renderSectionPage(container, sectionId) {
                 </div>
             </div>
         `;
-    });
+  });
 
-    container.innerHTML = `
+  container.innerHTML = `
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-title">${sectionData.title}</h2>
@@ -131,74 +131,77 @@ function renderSectionPage(container, sectionId) {
             </div>
         </div>
     `;
-    
-    // حفظ المقاسات المحددة افتراضياً في سمات العنصر
-    sectionData.items.forEach(product => {
-        const card = document.querySelector(`[data-product-id="${product.id}"]`);
-        if (card) {
-            if (product.hasSizes) {
-                card.setAttribute('data-selected-size', 'وسط');
-                card.setAttribute('data-selected-price', product.prices.medium);
-            } else {
-                card.setAttribute('data-selected-size', '');
-                card.setAttribute('data-selected-price', product.price);
-            }
-        }
-    });
+
+  // حفظ المقاسات المحددة افتراضياً في سمات العنصر
+  sectionData.items.forEach((product) => {
+    const card = document.querySelector(`[data-product-id="${product.id}"]`);
+    if (card) {
+      if (product.hasSizes) {
+        card.setAttribute("data-selected-size", "وسط");
+        card.setAttribute("data-selected-price", product.prices.medium);
+      } else {
+        card.setAttribute("data-selected-size", "");
+        card.setAttribute("data-selected-price", product.price);
+      }
+    }
+  });
 }
 
 function selectProductSize(productId, sizeLabel, price) {
-    const card = document.querySelector(`[data-product-id="${productId}"]`);
-    card.setAttribute('data-selected-size', sizeLabel);
-    card.setAttribute('data-selected-price', price);
-    
-    // تحديث السعر المعروض
-    document.getElementById(`price_${productId}`).innerText = `${price} ج.م`;
-    
-    // تغيير الـ active state للأزرار
-    const buttons = document.querySelectorAll(`#sizes_${productId} .size-btn`);
-    buttons.forEach(btn => {
-        if (btn.innerText === sizeLabel) btn.classList.add('active');
-        else btn.classList.remove('active');
-    });
+  const card = document.querySelector(`[data-product-id="${productId}"]`);
+  card.setAttribute("data-selected-size", sizeLabel);
+  card.setAttribute("data-selected-price", price);
+
+  // تحديث السعر المعروض
+  document.getElementById(`price_${productId}`).innerText = `${price} ج.م`;
+
+  // تغيير الـ active state للأزرار
+  const buttons = document.querySelectorAll(`#sizes_${productId} .size-btn`);
+  buttons.forEach((btn) => {
+    if (btn.innerText === sizeLabel) btn.classList.add("active");
+    else btn.classList.remove("active");
+  });
 }
 
 function changeUiQty(productId, change) {
-    const qtyElem = document.getElementById(`qty_${productId}`);
-    let currentQty = parseInt(qtyElem.innerText);
-    currentQty += change;
-    if (currentQty < 1) currentQty = 1;
-    qtyElem.innerText = currentQty;
+  const qtyElem = document.getElementById(`qty_${productId}`);
+  let currentQty = parseInt(qtyElem.innerText);
+  currentQty += change;
+  if (currentQty < 1) currentQty = 1;
+  qtyElem.innerText = currentQty;
 }
 
 function triggerAddToCart(productId, name, hasSizes) {
-    const card = document.querySelector(`[data-product-id="${productId}"]`);
-    const size = card.getAttribute('data-selected-size');
-    const price = parseFloat(card.getAttribute('data-selected-price'));
-    const qty = parseInt(document.getElementById(`qty_${productId}`).innerText);
-    
-    addToCart(productId, name, hasSizes ? size : null, price, qty);
-    
-    // إعادة العداد لـ 1 بعد الإضافة
-    document.getElementById(`qty_${productId}`).innerText = "1";
+  const card = document.querySelector(`[data-product-id="${productId}"]`);
+  const size = card.getAttribute("data-selected-size");
+  const price = parseFloat(card.getAttribute("data-selected-price"));
+  const qty = parseInt(document.getElementById(`qty_${productId}`).innerText);
+
+  addToCart(productId, name, hasSizes ? size : null, price, qty);
+
+  // إعادة العداد لـ 1 بعد الإضافة
+  document.getElementById(`qty_${productId}`).innerText = "1";
 }
 
 function renderCartPage(container = null, forceScroll = false) {
-    const mainContent = container || document.getElementById('mainContent');
-    
-    if (cart.length === 0) {
-        mainContent.innerHTML = `
+  const mainContent = container || document.getElementById("mainContent");
+
+  if (cart.length === 0) {
+    mainContent.innerHTML = `
             <h2 class="cart-title">سلة الطلبات</h2>
-            <div class="empty-cart-message">السلة فارغة !</div>
+            <div class="empty-cart-message">
+            <img src="/src/icon/logo.svg" alt="">
+            <p>السلة فارغة !</p>
+            </div>
         `;
-        if (forceScroll) window.scrollTo({ top: 0, behavior: 'auto' });
-        return;
-    }
-    
-    let cartItemsHTML = '';
-    cart.forEach(item => {
-        const sizeInfo = item.size ? `المقاس: ${item.size}` : 'حجم واحد';
-        cartItemsHTML += `
+    if (forceScroll) window.scrollTo({ top: 0, behavior: "auto" });
+    return;
+  }
+
+  let cartItemsHTML = "";
+  cart.forEach((item) => {
+    const sizeInfo = item.size ? `المقاس: ${item.size}` : "حجم واحد";
+    cartItemsHTML += `
             <div class="cart-item">
                 <div class="cart-item-details">
                     <h3 class="cart-item-name">${item.name}</h3>
@@ -215,9 +218,9 @@ function renderCartPage(container = null, forceScroll = false) {
                 </div>
             </div>
         `;
-    });
-    
-    mainContent.innerHTML = `
+  });
+
+  mainContent.innerHTML = `
         <h2 class="cart-title">سلة الطلبات</h2>
         <div class="cart-items-list">
             ${cartItemsHTML}
@@ -227,10 +230,10 @@ function renderCartPage(container = null, forceScroll = false) {
         </button>
     `;
 
-    // إجبار المتصفح يطلع فوق بالظبط لو داخل السلة جديد
-    if (forceScroll) {
-        setTimeout(() => {
-            window.scrollTo({ top: 0, behavior: 'auto' });
-        }, 10);
-    }
+  // إجبار المتصفح يطلع فوق بالظبط لو داخل السلة جديد
+  if (forceScroll) {
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }, 10);
+  }
 }

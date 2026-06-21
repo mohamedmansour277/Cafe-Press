@@ -515,10 +515,20 @@
 }
 
 .empty-cart-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
     text-align: center;
-    color: var(--text-secondary);
+    color: #595959;
     padding: 60px 10px;
     font-size: 18px;
+    font-weight: 500;
+}
+.empty-cart-message img {
+    width: 150px;
+    /* height: 100px; */
+    filter: grayscale(100%);
 }
 
 /* زرار إتمام الطلب الثابت الفخم (Sticky Checkout Button) */
