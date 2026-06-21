@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./src/icon/logo.svg" type="image/x-icon">
+    <title>Cafe Press</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/pages.css">
+    <!-- <link rel="preload" href="./src/imgs/pizzaSec.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="./src/imgs/fireSec.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="./src/imgs/dessertSec.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="./src/imgs/drinkSec.webp" as="image" fetchpriority="high"> -->
+</head>
+
+<body>
+    <div id="toastNotification" class="toast-notification"></div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-right">
+                <img src="././/src/icon/logo.svg" alt="Cafe Press" class="logo" onclick="navigateTo('home')" id="logo">
+            </div>
+            <div class="nav-left">
+                <div class="cart-icon-wrapper" onclick="navigateTo('cart')">
+                    <img src=".//src/icon/cart.svg" alt="السلة" class="cart-icon">
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content" id="mainContent"></main>
+
+    <footer class="footer">
+        <p>جميع الحقــوق محفــوظة لكافيه بريس 2025</p>
+    </footer>
+
+    <script src="src/js/data.js"></script>
+    <script src="src/js/cart.js"></script>
+    <script src="src/js/app.js"></script>
+</body>
+
+</html>

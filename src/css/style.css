@@ -1,0 +1,147 @@
+/* تعريف المتغيرات الأساسية للمشروع في الـ :root */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+:root {
+  /* ألوان الخلفيات (AMOLED Black / iOS Style) */
+  --bg-main: #ffeedb; /* أسود عميق للخلفية الأساسية */
+  --bg-card: #ffd7a9; /* رمادي داكن جداً للكروت والعناصر */
+  --bg-control: #ffe3c3; /* رمادي هادئ للأزرار والعدادات */
+  --bg-navbar: rgba(0, 0, 0, 0.001); /* خلفية النافبار الشفافة */
+
+  /* ألوان النصوص */
+  --text-primary: #ff3102; /* أبيض ناعم مريح للعين للنصوص الأساسية */
+  --text-secondary: #332b22; /* رمادي نصوص الوصف والفوتر */
+
+  /* ألوان الأكشن والبراند (Premium Accents) */
+  --color-accent: #ff3102; /* برتقالي آبل فخم للأسعار والأزرار الأساسية */
+  --color-danger: #ff3102; /* أحمر آبل لعلامة السلة وزر الحذف */
+  --color-success: #34c759; /* أخضر واتساب لإتمام الطلب */
+
+  /* ألوان الحدود والـ Borders */
+  --border-light: rgba(255, 255, 255, 0.05);
+  --border-navbar: #ff5934;
+
+  /* تأثيرات الجلاس مورفيزم والـ Layout */
+  --navbar-blur: blur(20px);
+  --radius-main: 16px;
+  --radius-sm: 8px;
+  --transition-fast: all 0s ease;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "tajawal", sans-serif;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* الناف بار الجلاس مورفيزم المميز */
+.navbar {
+  padding: 0px 20px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* height: 64px; */
+  backdrop-filter: var(--navbar-blur);
+  -webkit-backdrop-filter: var(--navbar-blur);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.nav-container {
+  /* background: var(--bg-navbar); */
+  border-bottom: 1px solid var(--border-navbar);
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 0px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  /* border: solid 1.5px var(--border-navbar); */
+  width: 55px;
+  cursor: pointer;
+  /* transition: var(--transition-fast); */
+}
+.logo:active {
+  transform: scale(0.95);
+}
+
+.cart-icon-wrapper {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.cart-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.cart-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: var(--color-danger);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* padding: 0 4px; */
+  border: 1.5px solid var(--bg-main);
+}
+
+/* حاوية المحتوى الرئيسي */
+.main-content {
+  /* margin-top: 64px; */
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 24px 20px;
+}
+
+/* الفوتر الذكي المستقر بأسفل الصفحة دائماً */
+.footer {
+  width: 100%;
+  max-width: 1200px;
+  text-align: center;
+  font-size: 13px;
+  margin: auto;
+  padding: 20px 20px 0px ;
+}
+.footer p {
+  color: var(--border-navbar);
+  font-size: 16px;
+  font-weight: 500;
+  border-top: 1px solid var(--border-navbar);
+  width: 100%;
+  padding: 20px 0;
+  /* background-color: red; */
+}
