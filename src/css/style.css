@@ -74,7 +74,7 @@ body {
 
 .logo {
   /* border: solid 1.5px var(--border-navbar); */
-  width: 55px;
+  width: 60px;
   cursor: pointer;
   /* transition: var(--transition-fast); */
 }
