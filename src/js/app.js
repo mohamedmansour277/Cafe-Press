@@ -19,23 +19,17 @@ function navigateTo(pageId, sectionId = null, smooth = true) {
     window.currentPage = pageId;
     const mainContent = document.getElementById('mainContent');
     
-    // 1. أولاً: بناء ورسم الصفحة الجديدة بالكامل في الـ DOM
     if (pageId === 'home') {
         renderHomePage(mainContent);
+        // نطلع فوق فوراً بعد بناء الرئيسية
+        window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
     } else if (pageId === 'section' && sectionId) {
         renderSectionPage(mainContent, sectionId);
+        // نطلع فوق فوراً بعد بناء الأقسام
+        window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
     } else if (pageId === 'cart') {
-        renderCartPage(mainContent);
+        renderCartPage(mainContent, true); // مررنا true هنا عشان يعمل سكرول لفوق
     }
-
-    // 2. ثانياً: إجبار المتصفح على التصفير والطلوع للقمة فوراً بعد بناء الصفحة
-    // وضعناها داخل setTimeout (حتى لو بـ 0 ملي ثانية) لتأكيد تنفيذها بعد انتهاء الـ Rendering تماماً
-    setTimeout(() => {
-        window.scrollTo({ 
-            top: 0, 
-            behavior: smooth ? 'smooth' : 'auto' 
-        });
-    }, 0);
 }
 
 function renderHomePage(container) {
@@ -189,7 +183,7 @@ function triggerAddToCart(productId, name, hasSizes) {
     document.getElementById(`qty_${productId}`).innerText = "1";
 }
 
-function renderCartPage(container = null) {
+function renderCartPage(container = null, forceScroll = false) {
     const mainContent = container || document.getElementById('mainContent');
     
     if (cart.length === 0) {
@@ -197,6 +191,7 @@ function renderCartPage(container = null) {
             <h2 class="cart-title">سلة الطلبات</h2>
             <div class="empty-cart-message">سلتك فارغة تماماً.. تصفح المنيو وأضف وجباتك المفضلة!</div>
         `;
+        if (forceScroll) window.scrollTo({ top: 0, behavior: 'auto' });
         return;
     }
     
@@ -231,4 +226,11 @@ function renderCartPage(container = null) {
             إتمام الطلب عبر الواتساب (${calculateTotalPrice()} ج.م)
         </button>
     `;
+
+    // إجبار المتصفح يطلع فوق بالظبط لو داخل السلة جديد
+    if (forceScroll) {
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'auto' });
+        }, 10);
+    }
 }
