@@ -19,12 +19,7 @@ function navigateTo(pageId, sectionId = null, smooth = true) {
     window.currentPage = pageId;
     const mainContent = document.getElementById('mainContent');
     
-    // استخدام السكرول الفوري عند الريفريش، والناعم عند التنقل العادي بين الصفحات
-    window.scrollTo({ 
-        top: 0, 
-        behavior: smooth ? 'smooth' : 'auto' 
-    });
-
+    // 1. أولاً: بناء ورسم الصفحة الجديدة بالكامل في الـ DOM
     if (pageId === 'home') {
         renderHomePage(mainContent);
     } else if (pageId === 'section' && sectionId) {
@@ -32,6 +27,15 @@ function navigateTo(pageId, sectionId = null, smooth = true) {
     } else if (pageId === 'cart') {
         renderCartPage(mainContent);
     }
+
+    // 2. ثانياً: إجبار المتصفح على التصفير والطلوع للقمة فوراً بعد بناء الصفحة
+    // وضعناها داخل setTimeout (حتى لو بـ 0 ملي ثانية) لتأكيد تنفيذها بعد انتهاء الـ Rendering تماماً
+    setTimeout(() => {
+        window.scrollTo({ 
+            top: 0, 
+            behavior: smooth ? 'smooth' : 'auto' 
+        });
+    }, 0);
 }
 
 function renderHomePage(container) {
