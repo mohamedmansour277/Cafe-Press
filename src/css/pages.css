@@ -524,6 +524,7 @@
     padding: 60px 10px;
     font-size: 18px;
     font-weight: 500;
+    opacity: .6;
 }
 .empty-cart-message img {
     width: 150px;
